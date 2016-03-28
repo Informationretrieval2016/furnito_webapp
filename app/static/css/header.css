@@ -1,0 +1,67 @@
+/*!
+ * Start Bootstrap - Business Frontpage HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+/*@import url(http://fonts.googleapis.com/css?family=Lobster:400);*/
+@font-face { 
+    font-family: Lobster; 
+    font-weight: bold;
+    src: url("..\\fonts\\lobster-two.bold.ttf"); 
+} 
+
+body {
+    padding-top: 0px;
+    background-color: #ecf0f1;
+}
+
+.furnito{
+    font-family: Lobster;
+    font-size: 200%;
+    text-shadow: 0 0 10px #ecf0f1;
+    color: #ecf0f1;
+}
+
+.furnito-back-holder{
+    text-align: center;
+    line-height: 70px;
+    float: left;
+    overflow: hidden;
+    background-image: url('..\\img\\Furnito_background.png');
+    background-size: 100px 70px;
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 70px;
+}
+
+.common-header {
+    height: 50px;
+    background-color : #ace600;
+/*    background: url('..\\img\\title-background.jpg') center center no-repeat scroll;*/
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+.placeholderdiv{
+    float: left;
+    width: 18%;
+}
+
+.srch-container{
+    padding-top: 10px;
+    float:left;
+    width: 50%;
+}
+
+.img-center {
+    margin: 0 auto;
+    width: 150px;
+    height: 150px;
+}
+
+.result-grid{
+    height: 300px;
+}
