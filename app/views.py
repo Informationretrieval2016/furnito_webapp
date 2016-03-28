@@ -10,6 +10,7 @@ import math
 com = Common()
 search = Search()
 mth = Match()
+vsm = VSM()
 
 @app.route('/')
 def index():
