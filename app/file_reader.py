@@ -1,7 +1,9 @@
-import config
 from os import listdir
 from os.path import isfile, join
 import json
+import sys
+sys.path.append('..')
+import config
 
 #read file in the document, next step is to tokenize
 class File_Reader:

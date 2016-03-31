@@ -39,7 +39,7 @@
                     <h4 class="tagline">Your personal home decorator</h4>
                     <hr class="hr-homepage">
                     <div class="srch-container">
-                    <form action="{{ url_for('result',page = 1) }}" method="post">
+                        <form action="{{ url_for('result',page = 1) }}" method="post">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
                                 <div class="input-group-btn">
@@ -48,6 +48,16 @@
                             </div>
                         </form>
                     </div>
+                </div>
+                <div class="col-lg-12">
+                    <br><br>
+                </div>
+                <div class="col-lg-12" align="center">
+                    {% if not session.logged_in%}
+                        <a href="{{ url_for('login') }}"><font color="white" size="5">login</font></a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="{{ url_for('register') }}"><font color="white" size="5">register</font></a></h4>
+                    {% else %}
+                        <p>welcome&nbsp;{{session.current_user}}. <a href="{{ url_for('logout') }}">exit</a></p>
+                    {% endif %}
                 </div>
             </div>
         </div>

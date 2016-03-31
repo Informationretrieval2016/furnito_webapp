@@ -1,5 +1,7 @@
-import config
 import json
+import sys
+sys.path.append('..')
+import config
 
 class File_Writer:
     def __init__(self):

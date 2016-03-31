@@ -1,9 +1,11 @@
 from file_reader import File_Reader
 from file_writer import File_Writer
 import string
-import config
 import ast
 from collections import OrderedDict, defaultdict
+import sys
+sys.path.append('..')
+import config
 
 class Invert_Index:
     def __init__(self):
@@ -72,3 +74,6 @@ class Invert_Index:
 
         return content
 
+# ii = Invert_Index()
+# ii.multi_dictionary()
+# ii.posting_list()

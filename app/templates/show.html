@@ -1,22 +1,111 @@
 {% extends "header.html" %}
 {% block body %}
-	<h2>{{name}}</h2>
-	<p>{{description}}</p>
-	<img src="{{img_url}}">
-	<ul>
-	{% for comment in commentlist%}
-		<li> {{ comment }} </li>
-	{% else %}
-		<h4>No comment</h4>
-	{% endfor %}
-	</ul>
-	{% for related in related_data%}
-	<a href="{{ url_for('show',name=related['name']) }}">
-		<div style="width: 150px;">
-			<img src="{{ related['img_url'][0] }}" style="height: 100px; width: 100px">
-			<h4>{{ related['name'] }}</h4>
-		</div>
-	</a>
-	{% endfor %}
+    <!-- Page Content -->
+    <div class="container">
 
+        <!-- Portfolio Item Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="page-header">{{name}}
+                    <!-- <small>Item Subheading</small> -->
+                </h2>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <!-- Portfolio Item Row -->
+        <div class="row">
+
+            <div class="col-md-8">
+                <img class="img-responsive" src="{{img_url}}" alt="">
+            </div>
+
+            <div class="col-md-4">
+                <h3>Description</h3>
+                <div class="show-page-description">
+                	<p>{{description}}</p>
+                </div>
+                <h3>Price</h3>
+                <h3>{{price}}</h3>
+            </div>
+
+        </div>
+        <!-- /.row -->
+    </div>
+    <div class="container">
+        <!-- Related Projects Row -->
+        	<ul id="myTab" class="nav nav-tabs">
+    			<li class="active">
+        			<a href="#comments" data-toggle="tab">
+            			Comments
+        			</a>
+    			</li>
+    			<li>
+        			<a href="#recomments" data-toggle="tab">
+            			You may also like...
+        			</a>
+    			</li>
+			</ul>
+			<div id="myTabContent" class="tab-content">
+				<div class="tab-pane fade in active" id="comments">
+					{% for comment in commentlist%}
+						<div class="row">
+							<div class="col-md-12" style="background-color: white">
+								<div class="row">
+									<p>{{ comment }}</p>
+								</div>
+							</div>
+						</div>
+						<br>
+					{% else %}
+						<h4>No comment</h4>
+					{% endfor %}
+				</div>
+				<div class="tab-pane fade" id="recomments">
+					<div class="row">
+						{% for related in related_data %}
+            				<div class="col-sm-3 col-xs-6">
+                				<a href="{{ url_for('show',name=related['name'],last_name = name) }}">
+                    				<img class="img-responsive portfolio-item" src="{{related['img_url'][0]}}" alt="">
+                    				<h4>{{ related['name'].replace('_',' ') }}</h4>
+                				</a>
+            				</div>
+            			{% endfor %}
+            		</div>
+				</div>
+			</div>
+        <hr>
+    </div>
+    <!-- /.container -->
+
+	<!-- <div class="container" style="width:85%">
+		<div class="row">
+			<div class="col-md-12">
+				<h4>{{name}}</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<img src="{{img_url}}" class="img-show-page">
+			</div>
+			<div class="col-md-8">
+				<p>{{description}}</p>
+			</div>
+		</div>
+		<ul>
+		{% for comment in commentlist%}
+			<li> {{ comment }} </li>
+		{% else %}
+			<h4>No comment</h4>
+		{% endfor %}
+		</ul>
+		{% for related in related_data%}
+		<a href="{{ url_for('show',name=related['name']) }}">
+			<div style="width: 150px;">
+				<img src="{{ related['img_url'][0] }}" style="height: 100px; width: 100px">
+				<h4>{{ related['name'] }}</h4>
+			</div>
+		</a>
+		{% endfor %}
+	</div> -->
 {% endblock %}
