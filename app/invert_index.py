@@ -1,11 +1,8 @@
 from file_reader import File_Reader
 from file_writer import File_Writer
 import string
-import ast
-from collections import OrderedDict, defaultdict
-import sys
-sys.path.append('..')
 import config
+from collections import OrderedDict, defaultdict
 
 class Invert_Index:
     def __init__(self):
@@ -22,19 +19,26 @@ class Invert_Index:
         '''
         content = self.fr.read_file(file_name)
         content = self.clean(content)
+        doc_length = 0
         #construct dict : docid
         f = open(self.temp, 'a')
+        doc_length = len(content.split())
         for term in content.split():
             f.write(term + "," + file_name + "\n")
         f.close()
+        return doc_length
 
     def multi_dictionary(self):
         '''
-        @usage: generate full-dictionary
+        @usage: generate full-dictionary, write doc length to json at the same time
         '''
         files = self.fr.load_file_names()
+        doc_length_dict = {}
         for current_file in files:
-            self.single_dictionary(current_file)
+            doc_length = self.single_dictionary(current_file)
+            doc_length_dict[current_file] = doc_length
+        self.fw.write_doc_length(doc_length_dict)
+
 
     def posting_list(self):
         '''
@@ -73,7 +77,3 @@ class Invert_Index:
         content = ' '.join(content.split())
 
         return content
-
-# ii = Invert_Index()
-# ii.multi_dictionary()
-# ii.posting_list()

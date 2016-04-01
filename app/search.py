@@ -29,7 +29,7 @@ class Search:
         furniture_list = []
         query = " ".join(query.split())
         query_list = query.split()
-        furniture_dict = self.vsm.simple_vector_space(query_list)
+        furniture_dict = self.vsm.bm25_vector_space(query_list)
         furniture_dict = sorted(furniture_dict.items(), key = operator.itemgetter(1), reverse = True)
         furniture_list = [ (self.json + furniture[0] + '.json') for furniture in furniture_dict]
         return furniture_list
