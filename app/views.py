@@ -110,6 +110,9 @@ def result(page):
 @app.route('/show', methods=['GET', 'POST'])
 def show():
     name = request.args.get('name').replace(' ','_')
+    age = None
+    favoritestyle = None
+    gender = None
     try:
         if escape(session['logged_in']): 
             last_name = request.args.get('last_name').replace(' ','_')
@@ -129,7 +132,7 @@ def show():
     comments = Comments.query.filter_by(furniture_name = name).all()
     for comment in comments:
         commentlist.append(comment.comment)
-    related_list = mth.match_test()
+    related_list = mth.match_furniture(name,age,favoritestyle,gender)
     for related in related_list:
         related_data.append(com.readJSON(related))
     return render_template('show.html', commentlist = commentlist, name = name.replace('_',' '), img_url = data['img_url'][0], description = data['description'], price = data['price'], related_data = related_data)
