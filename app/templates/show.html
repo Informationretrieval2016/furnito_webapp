@@ -47,27 +47,26 @@
     			</li>
 			</ul>
 			<div id="myTabContent" class="tab-content">
-				<div class="tab-pane fade in active" id="comments">
-					{% for comment in commentlist%}
-						<div class="row">
+				<div class="tab-pane fade in active container" id="comments">
+					<div class="row">
+						{% for comment in commentlist%}
 							<div class="col-md-12" style="background-color: white">
 								<div class="row">
 									<p>{{ comment }}</p>
 								</div>
 							</div>
-						</div>
-						<br>
-					{% else %}
-						<h4>No comment</h4>
-					{% endfor %}
+						{% else %}
+							<h4>No comment</h4>
+						{% endfor %}
+					</div>
 				</div>
-				<div class="tab-pane fade" id="recomments">
+				<div class="tab-pane fade container" id="recomments">
 					<div class="row">
 						{% for related in related_data %}
-            				<div class="col-sm-3 col-xs-6">
+            				<div class="col-md-3" style="height:350px;overflow:hidden;text-overflow:ellipsis">
                 				<a href="{{ url_for('show',name=related['name'],last_name = name) }}">
                     				<img class="img-responsive portfolio-item" src="{{related['img_url'][0]}}" alt="">
-                    				<h4>{{ related['name'].replace('_',' ') }}</h4>
+                    				<p>{{ related['name'].replace('_',' ') }}</p>
                 				</a>
             				</div>
             			{% endfor %}

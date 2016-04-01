@@ -91,6 +91,8 @@ def result(page):
         search_query = session['search_query']
     furniture_list = search.search_bm25(search_query)
     total_pages = int(math.ceil(float(len(furniture_list)) / term_per_page))
+    if total_pages <= 0:
+        return render_template('result.html',search_query = search_query,datas = [], total_pages = 1)
     if page < 1:
         return redirect(url_for('result', page=1))
     if page > total_pages:

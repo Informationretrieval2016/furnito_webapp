@@ -22,6 +22,11 @@ class Match:
         scores = []
         related_furniture_one_list = Clicks.query.filter_by(furniture_one = name).all()
         related_furniture_two_list = Clicks.query.filter_by(furniture_two = name).all()
+        if len(related_furniture_one_list) == 0 and len(related_furniture_two_list) == 0:
+            file_list = self.com.GetFileList(config.json_store)
+            related_furniture = random.sample(file_list,8)
+            print 'return random'
+            return related_furniture
         if len(related_furniture_one_list) != 0:
             for related_furniture_one in related_furniture_one_list:
                 score = 1
@@ -35,9 +40,9 @@ class Match:
                     index = related_furniture.index(related_furniture_one.furniture_two)
                     scores[index] = scores[index] + score
                 else:
-                    related_furniture.append(json_store + related_furniture_one.furniture_two + '.json')
+                    related_furniture.append(config.json_store + related_furniture_one.furniture_two + '.json')
                     scores.append(score)
-        elif len(related_furniture_two_list) != 0:
+        if len(related_furniture_two_list) != 0:
             for related_furniture_two in related_furniture_two_list:
                 score = 1
                 if related_furniture_two.age == age:
@@ -50,16 +55,15 @@ class Match:
                     index = related_furniture.index(related_furniture_two.furniture_one)
                     scores[index] = scores[index] + score
                 else:
-                    related_furniture.append(json_store + related_furniture_two.furniture_one + '.json')
+                    related_furniture.append(config.json_store + related_furniture_two.furniture_one + '.json')
                     scores.append(score)
-        else:
-            file_list = self.com.GetFileList(config.json_store)
-            related_furniture = random.sample(file_list,8)
-            print 'return random'
-            return related_furniture
         related_furniture = zip(related_furniture,scores)
+        related_furniture_list = [list(t) for t in zip(*(sorted(related_furniture, key=lambda s : s[1], reverse = True)))][0]
+        if len(related_furniture_list) < 8:
+            file_list = self.com.GetFileList(config.json_store)
+            related_furniture_list.extend(random.sample(file_list,8-len(related_furniture_list)))
         print 'return related'
-        return [list(t) for t in zip(*(sorted(related_furniture, key=lambda s : s[1], reverse = True)))][0]
+        return related_furniture_list
 
 
 

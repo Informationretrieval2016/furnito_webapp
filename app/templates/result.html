@@ -16,7 +16,9 @@
                 <p>{{data['description']}}</p>
             </div>
   		{% else %}
-    		Sorry, no {{search_query}} was found
+            <div class="col-md-12">
+                <p>Sorry, no {{search_query}} was found</p>
+            </div>
   		{% endfor %}
   	</div>
 </div>
