@@ -2,11 +2,15 @@ from common import Common
 import pymysql.cursors
 import pymysql
 import pandas as pd
+import sys
+sys.path.append('..')
+import config
 
 class Insert_db:
 
     def __init__(self):
         self.com = Common()
+        self.sentiment_doc = config.sentiment_path
 
     def loadData(self):
         '''
@@ -71,6 +75,7 @@ class Insert_db:
                     else:
                         pass
         db.close()
+
 
 i = Insert_db()
 i.csvtoDatebase()

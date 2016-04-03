@@ -1,7 +1,8 @@
 from common import Common
 from app import db
-from models import Clicks
+from models import Clicks, Comments
 import random
+import pandas as pd
 import sys
 sys.path.append('..')
 import config
@@ -10,6 +11,7 @@ class Match:
 
     def __init__(self):
         self.com = Common()
+        self.sentiment_doc = config.sentiment_path
 
     def match_test(self):
         related = []
@@ -57,6 +59,10 @@ class Match:
                 else:
                     related_furniture.append(config.json_store + related_furniture_two.furniture_one + '.json')
                     scores.append(score)
+        index = 0
+        for rf in related_furniture:
+            scores[index] += self.sentiment(self.get_comments(rf))
+            index += 1
         related_furniture = zip(related_furniture,scores)
         related_furniture_list = [list(t) for t in zip(*(sorted(related_furniture, key=lambda s : s[1], reverse = True)))][0]
         if len(related_furniture_list) < 8:
@@ -64,6 +70,22 @@ class Match:
             related_furniture_list.extend(random.sample(file_list,8-len(related_furniture_list)))
         print 'return related'
         return related_furniture_list
+
+    def sentiment(self, comments):
+        value = 0.0
+        df = pd.read_csv(self.sentiment_doc, encoding = "utf-8")
+        for comment in comments:
+            words = comment.split()
+            for word in words:
+                value += df[df.word == 'a'].iloc[0,1]
+        return value
+
+    def get_comments(self, name):
+        commentlist = []
+        comments = Comments.query.filter_by(furniture_name = name).all()
+        for comment in comments:
+            commentlist.append(comment.comment)
+        return commentlist
 
 
 
